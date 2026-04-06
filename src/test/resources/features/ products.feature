@@ -14,17 +14,18 @@ Feature: Product management on Fake Store API
     When I request the product with id 1
     Then the response status code should be 200
     And the returned product should have a non-empty title
-    And the returned producto should have a price greater than 0
+    And the returned product should have a price greater than 0
 
   Scenario Outline: Get multiple products by different identifiers
     Given the Fake Store API service is available
     When I request the product with id <productId>
     Then the response status code should be 200
-    And the returned product should have a catagory <expectedCategory>
-    And the returned producto should have a price greater than <minPrice>
+    And the returned product should have the category "<expectedCategory>"
+    And the returned product should have a price greater than <minPrice>
 
     Examples:
     | productId | expectedCategory | minPrice |
     | 1         | men's clothing   | 40       |
     | 2         | men's clothing   | 20       |
     | 15        | women's clothing | 10       |
+
