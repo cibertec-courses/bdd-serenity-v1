@@ -6,6 +6,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static net.serenitybdd.rest.SerenityRest.*;
 import static org.hamcrest.Matchers.*;
 
@@ -42,6 +45,26 @@ public class ProductSteps {
                 .get("/products/{id}");
     }
 
+    @When("I create a new product with title {string}, price {double} and category {string}")
+    public void iCreateANewProductWithTitleAndPrice89AndCategory(String title, double price, String category) {
+        Map<String, Object> bodyR = new HashMap<>();
+        bodyR.put("title", title);
+        bodyR.put("price", price);
+        bodyR.put("category", category);
+        bodyR.put("description", "Product create by automated BDD test");
+        bodyR.put("image", "https://www.shutterstock.com/search/backpack-clipart");
+
+        response = given()
+                .baseUri(BASE_URI)
+                .header("Content-Type","application/json")
+                .body(bodyR)
+                .when()
+                .post("/products");
+
+    }
+
+
+
     @Then("the response status code should be {int}")
     public void theResponseStatusCodeShouldBe(int expectedStatusCode) {
         response.then().statusCode(expectedStatusCode);
@@ -67,4 +90,8 @@ public class ProductSteps {
         response.then().body("category", equalTo(expectedCategory));
     }
 
+    @And("the response should contain the created product identifier")
+    public void theResponseShouldContainTheCreatedProductIdentifier() {
+        response.then().body("id", notNullValue());
+    }
 }
