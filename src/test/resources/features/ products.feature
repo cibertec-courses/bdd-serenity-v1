@@ -32,5 +32,5 @@ Feature: Product management on Fake Store API
   Scenario: Create a new product in the catalog
     Given the Fake Store API service is available
     When I create a new product with title "Cibertec Backpack", price 89.99 and category "accessories"
-    Then the response status code should be 200
+    Then the response status code should be 201
     And the response should contain the created product identifier

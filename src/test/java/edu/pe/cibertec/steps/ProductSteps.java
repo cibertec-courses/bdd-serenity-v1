@@ -50,10 +50,9 @@ public class ProductSteps {
         Map<String, Object> bodyR = new HashMap<>();
         bodyR.put("title", title);
         bodyR.put("price", price);
-        bodyR.put("category", category);
         bodyR.put("description", "Product create by automated BDD test");
         bodyR.put("image", "https://www.shutterstock.com/search/backpack-clipart");
-
+        bodyR.put("category", category);
         response = given()
                 .baseUri(BASE_URI)
                 .header("Content-Type","application/json")
